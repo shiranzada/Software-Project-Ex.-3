@@ -109,3 +109,7 @@ steps* minmax(char player){
 	max(minmaxDepth, player, board, &bestStep)
 }
 
+<<<<<<< HEAD
+=======
+  
+>>>>>>> origin/master

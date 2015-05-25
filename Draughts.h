@@ -88,3 +88,5 @@ int max(int , char , board_t , steps* );
 int min(int , char , board_t , steps* );
 
 #endif  
+
+
