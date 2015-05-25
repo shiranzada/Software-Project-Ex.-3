@@ -30,6 +30,10 @@ typedef char** board_t;
 
 void print_board(char board[BOARD_SIZE][BOARD_SIZE]);
 void init_board(char board[BOARD_SIZE][BOARD_SIZE]);
+typedef struct linkedList linkedList;
+typedef struct listNode listNode;
+typedef struct location location;
+typedef struct steps steps;
 
 struct listNode
 {
@@ -57,10 +61,7 @@ struct steps
 
 
 
-typedef struct linkedList linkedList;
-typedef struct listNode listNode;
-typedef struct location location;
-typedef struct steps steps;
+
 linkedList moves = { NULL }; // the global list of all possible moves
 int minmaxDepth = 1;
 char userColor = 'w';
@@ -84,8 +85,10 @@ linkedList setMoveList(char, board_t);
 void printMoveList();
 int isLegalMove(steps);
 int compateLoc(location, location);
-int max(int , char , board_t , steps* );
-int min(int , char , board_t , steps* );
+int score(board_t);
+int max(int , char , board_t , steps** );
+int min(int , char , board_t , steps** );
+steps* minmax(char);
 
 #endif  
 
