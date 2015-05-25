@@ -31,4 +31,60 @@ typedef char** board_t;
 void print_board(char board[BOARD_SIZE][BOARD_SIZE]);
 void init_board(char board[BOARD_SIZE][BOARD_SIZE]);
 
+struct listNode
+{
+	struct listNode* next;
+	void* data;
+};
+
+struct linkedList
+{
+	struct listNode* first;
+};
+
+struct location
+{
+	char x;
+	int y;
+};
+
+struct steps
+{
+	linkedList listOfSteps;
+	listNode* last;
+	int numberOfEats;
+};
+
+
+
+typedef struct linkedList linkedList;
+typedef struct listNode listNode;
+typedef struct location location;
+typedef struct steps steps;
+linkedList moves = { NULL }; // the global list of all possible moves
+int minmaxDepth = 1;
+char userColor = 'w';
+char board[BOARD_SIZE][BOARD_SIZE];
+void mMoveStep(board_t, char, location, steps); // adds to the list of steps any possible one step move of a man
+void kMoveStep(board_t, char, location, steps);// adds to the list of steps any possible one step move of a king
+void moveEat(board_t, char, location, steps); // adds to the list of steps any possible one eat
+
+char* getInput(FILE * , size_t);
+void analysis(char*);
+void setMinmaxDepth(int); // checks if 1<=int<=6
+void setUserColor(char*); // checks if color == white || black
+void clear();
+void removeDisc(location); // checks if legal location (1<=x<=10 'a'<=y<='j')
+void setDisc(location, char*, char); // checks if legal location (1<=x<=10 'a'<=y<='j')
+void quit(); // frees all mallocs
+void start(); // checks if 1. board is empty 2. only one color 3. more than 20 discs in the same color
+int isLegalPosition(location);
+board_t moveDisc(steps, char);
+linkedList setMoveList(char, board_t);
+void printMoveList();
+int isLegalMove(steps);
+int compateLoc(location, location);
+int max(int , char , board_t , steps* );
+int min(int , char , board_t , steps* );
+
 #endif  
