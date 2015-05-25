@@ -75,7 +75,7 @@ int max(int depth, char player, board_t board, steps** bestStep){
 	listNode* node = moves.first;
 	while (node!=NULL)
 	{
-		stepScore = score(min(depth - 1, otherPlayer, moveDisc(*(steps*)node->data, player)));
+		stepScore = score(min(depth - 1, otherPlayer, moveDisc(*(steps*)node->data, player),bestStep));
 		if (stepScore < currMin){
 			currMin = stepScore;
 			*bestStep = (steps*)node->data;
@@ -95,7 +95,7 @@ int min(int depth, char player, board_t board, steps** bestStep){
 	listNode* node = moves.first;
 	while (node != NULL)
 	{
-		stepScore = score(max(depth - 1, otherPlayer, moveDisc(*(steps*)node->data, player)));
+		stepScore = score(max(depth - 1, otherPlayer, moveDisc(*(steps*)node->data, player), bestStep));
 		if (stepScore > currMin){
 			currMin = stepScore;
 			*bestStep = (steps*)node->data;
@@ -106,10 +106,6 @@ int min(int depth, char player, board_t board, steps** bestStep){
 
 steps* minmax(char player){
 	steps* bestStep = NULL;
-	max(minmaxDepth, player, board, &bestStep)
+	max(minmaxDepth, player, board, &bestStep);
+	return bestStep;
 }
-
-<<<<<<< HEAD
-=======
-  
->>>>>>> origin/master
