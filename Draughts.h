@@ -65,10 +65,10 @@ struct steps
 linkedList moves = { NULL }; // the global list of all possible moves
 int minmaxDepth = 1;
 char userColor = 'w';
-char board[BOARD_SIZE][BOARD_SIZE];
-void mMoveStep(board_t, char, location, steps); // adds to the list of steps any possible one step move of a man
-void kMoveStep(board_t, char, location, steps);// adds to the list of steps any possible one step move of a king
-void moveEat(board_t, char, location, steps); // adds to the list of steps any possible one eat
+void mMoveStep(board_t, char, steps, linkedList*); // adds to the list of steps any possible one step move of a man
+void kMoveStep(board_t, char, steps, linkedList*);// adds to the list of steps any possible one step move of a king
+void moveEat(board_t, char, steps, linkedList*, int); // adds to the list of steps any possible one eat
+void mMove(board_t, char, steps, linkedList*);
 
 char* getInput(FILE * , size_t);
 void analysis(char*);
@@ -80,7 +80,7 @@ void setDisc(location, char*, char); // checks if legal location (1<=x<=10 'a'<=
 void quit(); // frees all mallocs
 void start(); // checks if 1. board is empty 2. only one color 3. more than 20 discs in the same color
 int isLegalPosition(location);
-board_t moveDisc(steps, char);
+board_t moveDisc(board_t,steps, char);
 linkedList setMoveList(char, board_t);
 void printMoveList();
 int isLegalMove(steps);
@@ -89,6 +89,8 @@ int score(board_t);
 int max(int , char , board_t , steps** );
 int min(int , char , board_t , steps** );
 steps* minmax(char);
+int isBlocked(board_t, char, steps, steps*, int);
+void freeNode(listNode*);
 
 #endif  
 
