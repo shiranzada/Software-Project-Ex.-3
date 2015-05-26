@@ -85,7 +85,7 @@ linkedList setMoveList(char, board_t);
 void printMoveList();
 int isLegalMove(steps);
 int compateLoc(location, location);
-int score(board_t);
+int score(board_t, char);
 int max(int , char , board_t , steps** );
 int min(int , char , board_t , steps** );
 steps* minmax(char);

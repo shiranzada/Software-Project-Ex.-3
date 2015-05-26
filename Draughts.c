@@ -83,7 +83,7 @@ void init_board(board_t board){
 
 int Max(int depth, char player, board_t board, steps** bestStep){
 	if (depth == 0){
-		return score(board);
+		return score(board, player);
 	}
 	char otherPlayer = ('b' + 'w' - player);
 	int currMin = INT_MAX;
@@ -103,7 +103,7 @@ int Max(int depth, char player, board_t board, steps** bestStep){
 
 int Min(int depth, char player, board_t board, steps** bestStep){
 	if (depth == 0){
-		return score(board);
+		return score(board, player);
 	}
 	char otherPlayer = ('b' + 'w' - player);
 	int currMin = INT_MIN;
@@ -112,7 +112,7 @@ int Min(int depth, char player, board_t board, steps** bestStep){
 	listNode* node = moves.first;
 	while (node != NULL)
 	{
-		stepScore = score(max(depth - 1, otherPlayer, moveDisc(board,*(steps*)node->data, player), bestStep));
+		stepScore = score(max(depth - 1, otherPlayer, moveDisc(board,*(steps*)node->data, player), bestStep),player);
 		if (stepScore > currMin){
 			currMin = stepScore;
 			*bestStep = (steps*)node->data;
@@ -292,6 +292,37 @@ linkedList setMoveList(char c, board_t b){// not complete just for compilation
 	return;
 }
 
-int score(board_t b){// not complete just for compilation
-	return 0;
+int score(board_t b, char player){// not complete just for compilation
+	if (setMoveList(player,b).first == NULL) // no possible moves
+	{
+		return -100; // losing score
+	}
+	if (setMoveList('w' + 'b' - player, b).first == NULL) // other player has no possible moves
+	{
+		return 100; // winning score
+	}
+	int score = 0;
+	int playerInt = player == 'w' ? 1 : -1;
+	for (int i = 0; i < BOARD_SIZE; i++){
+		for (int j = 0; j < BOARD_SIZE; j++)
+		{
+			if (b[i][j]== WHITE_M)
+			{
+				score += playerInt;
+			}
+			if (b[i][j] == BLACK_M)
+			{
+				score -= playerInt;
+			}
+			if (b[i][j] == WHITE_K)
+			{
+				score += 3*playerInt;
+			}
+			if (b[i][j] == BLACK_K)
+			{
+				score -= 3*playerInt;
+			}
+		}
+	}
+	return score;
 }
